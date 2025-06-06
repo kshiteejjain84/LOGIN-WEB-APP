@@ -1,5 +1,7 @@
 pipeline {
-agent none
+agent {
+ label 'bult-in'
+}
  stages {
 stage(dir1) {
  steps {
