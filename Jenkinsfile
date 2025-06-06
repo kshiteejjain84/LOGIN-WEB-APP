@@ -21,9 +21,9 @@ tools {
          steps {
           publishOverSsh(
            server: 'server-1',
-           sourceFiles:
-           removePrefix:
-           remoteDirectory:
+           sourceFiles: '',
+           removePrefix: '',
+           remoteDirectory: '',
            commands: 'rm -rf /mnt/apache-tomcat-10.1.41/webapps/*.war',
            execTimeout: 60000,
            verbose: true
@@ -36,7 +36,7 @@ tools {
            server: 'server-1',
            sourceFiles: 'target/*.war',
            removePrefix: 'target',
-           remoteDirectory:
+           remoteDirectory:'',
            commands: '''
                  cd /mnt/apache-tomcat-10.1.41/bin
                  ./startup.sh
