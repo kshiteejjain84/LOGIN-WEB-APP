@@ -7,7 +7,7 @@ pipeline {
     stage('clone git repo') {
         steps {
            dir('/mnt/project') {
-               scm checkout
+               checkout scm
            }
             
         }
