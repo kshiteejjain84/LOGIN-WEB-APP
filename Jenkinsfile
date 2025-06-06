@@ -22,5 +22,10 @@ pipeline {
                 }
             }
         }
+        stage(deploy of war file on tomcat-server) {
+            steps {
+               sh 'scp -i /root/key.pem /mnt/project/target/*.war ec2-user@172.31.40.247:/mnt/apache-tomcat-10.1.41/webapps'
+            }
+        }
     } 
 }
