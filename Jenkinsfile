@@ -1,20 +1,20 @@
 pipeline {
 agent any
  stages {
- stage(cleaning custom-workspace) {
+ stage('cleaning custom-workspace') {
   steps {
-   sh '''rm -rf /mnt/project
-   mkdir -p /mnt/project'''
+   sh 'rm -rf /mnt/project'
+   sh 'mkdir -p /mnt/project'
   }
  }
-  stage(clone repo on custom location) {
+  stage('clone repo on custom location') {
  steps {
   dir('/mnt/project') {
    checkout scm
   }
  }
 }
-  stage(dir1) {
+  stage('dir1') {
  steps {
   sh 'mkdir dir1'
  }
