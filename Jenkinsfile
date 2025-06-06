@@ -29,14 +29,12 @@ pipeline {
         }
         stage('execute command on remote server') {
             steps {
-                sshagent(credentials: ['key.pem']) {
-                    sh '''
+          sh '''
                     ssh ec2-user@3.131.160.165 <<EOF
                     cd /mnt/apache-tomcat-10.1.41/bin
                     ./startup.sh
                     EOF
                     '''
-                }
             }
         }
     } 
