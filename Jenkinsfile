@@ -1,12 +1,10 @@
 pipeline {
-agent { 
-label 'built-in'
+agent none
+ stages {
+stage(dir1) {
+ steps {
+  sh 'mkdir dir1'
  }
-stages {
-stage (creating dir) {
-steps {
-sh 'mkdir vel-app'
-            }
-         }
-     }
+}
+ }
 }
