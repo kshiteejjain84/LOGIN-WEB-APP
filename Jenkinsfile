@@ -32,7 +32,7 @@ pipeline {
           sh '''
                     ssh -o StrictHostKeyChecking=no -i /root/key.pem ec2-user@172.31.40.247 <<EOF
                     cd /mnt/apache-tomcat-10.1.41/bin
-                    ./startup.sh
+                    service apache-tomcat-10.1.41 start
                     EOF
                     '''
             }
