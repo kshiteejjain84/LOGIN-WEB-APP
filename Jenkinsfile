@@ -31,9 +31,9 @@ pipeline {
     steps {
         sh '''
             ssh -T -o StrictHostKeyChecking=no -i /root/key.pem ec2-user@172.31.40.247 << 'EOF'
-sudo chmod -R 777 /mnt/apache-tomcat-10.1.41/webapps
 cd /mnt/apache-tomcat-10.1.41/bin
 sudo ./startup.sh
+sudo chmod -R 777 /mnt/apache-tomcat-10.1.41/webapps
 EOF
         '''
     }
