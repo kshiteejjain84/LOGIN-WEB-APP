@@ -6,9 +6,10 @@ pipeline {
     stages {
     stage('clone git repo') {
         steps {
-            sh 'rm -rf /mnt/project'
-            sh 'mkdir -p /mnt/project'
-            sh 'git clone https://github.com/kshiteejjain84/project.git /mnt/project
+           dir('/mnt/project') {
+               scm checkout
+           }
+            
         }
     }
         stage('mvn build') {
