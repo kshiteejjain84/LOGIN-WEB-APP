@@ -39,7 +39,7 @@ EOF
         '''
     }
 }
-        stage('after extraction of war file) {
+        stage('after extraction of war file') {
               steps {
                   sleep 10
                   sh '''
