@@ -9,12 +9,12 @@ tools {
     dir('/mnt/project') {
         script {
      //cleaning the custom workspace and creating custom workspace
-         sh 'rm -rf /mnt/project
+         sh 'rm -rf /mnt/project'
          sh 'mkdir -p /mnt/project'
      //cloning the git repository to custom workspace
          checkout scm
      //running maven build
-         sh 'rm -rf /root/.m2/repository
+         sh 'rm -rf /root/.m2/repository'
          sh 'mvn clean install'
         }
         stage('execute shell commands on remote server') {
