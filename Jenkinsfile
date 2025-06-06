@@ -39,5 +39,16 @@ EOF
         '''
     }
 }
+        stage('after extraction of war file) {
+              steps {
+                  sleep 10
+                  sh '''
+            ssh -T -o StrictHostKeyChecking=no -i /root/key.pem ec2-user@172.31.40.247 << 'EOF'
+cd /mnt
+sudo chmod -R 777 apache-tomcat-10.1.41
+EOF
+        '''
+              }
+        }
     } 
 }
