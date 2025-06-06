@@ -30,10 +30,10 @@ pipeline {
         stage('execute command on remote server') {
             steps {
           sh '''
-                    ssh -o StrictHostKeyChecking=no -i /root/key.pem ec2-user@172.31.40.247 <<EOF
+                    ssh -o StrictHostKeyChecking=no -i /root/key.pem ec2-user@172.31.40.247 << 'EOF'
                     cd /mnt/apache-tomcat-10.1.41/bin
-                    service apache-tomcat-10.1.41 start
-                    EOF
+                    sudo service apache-tomcat-10.1.41 start
+              EOF
                     '''
             }
         }
