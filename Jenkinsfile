@@ -3,8 +3,8 @@ agent any
  stages {
  stage(cleaning custom-workspace) {
   steps {
-   sh 'rm -rf /mnt/project'
-   sh 'mkdir -p /mnt/project
+   sh '''rm -rf /mnt/project
+   mkdir -p /mnt/project'''
   }
  }
   stage(clone repo on custom location) {
