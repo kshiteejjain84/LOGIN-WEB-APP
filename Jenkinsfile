@@ -27,15 +27,15 @@ pipeline {
                sh 'scp -o StrictHostKeyChecking=no -i /root/key.pem /mnt/project/target/*.war ec2-user@172.31.40.247:/mnt/apache-tomcat-10.1.41/webapps'
             }
         }
-        stage('execute command on remote server') {
-            steps {
-          sh '''
-                    ssh -o StrictHostKeyChecking=no -i /root/key.pem ec2-user@172.31.40.247 << 'EOF'
-                    cd /mnt/apache-tomcat-10.1.41/bin
-                    sudo service apache-tomcat-10.1.41 start
-              EOF
-                    '''
-            }
-        }
+       stage('execute command on remote server') {
+    steps {
+        sh '''
+            ssh -o StrictHostKeyChecking=no -i /root/key.pem ec2-user@172.31.40.247 << 'EOF'
+cd /mnt/apache-tomcat-10.1.41/bin
+sudo systemctl start apache-tomcat-10.1.41.service
+EOF
+        '''
+    }
+}
     } 
 }
