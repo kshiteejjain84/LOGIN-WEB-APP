@@ -1,6 +1,6 @@
 pipeline {
 agent {
- label 'bult-in'
+ label 'master'
 }
  stages {
 stage(dir1) {
