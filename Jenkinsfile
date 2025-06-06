@@ -7,6 +7,7 @@ pipeline {
     stage('clone git repo') {
         steps {
            dir('/mnt/project') {
+               sh 'rm -rf *'
                checkout scm
            }
             
