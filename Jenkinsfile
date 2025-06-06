@@ -20,34 +20,49 @@ tools {
     }
    }
   }
-        stage('execute shell commands on remote server') {
-         steps {
-          publishOverSsh(
-           server: 'server-1',
-           sourceFiles: '',
-           removePrefix: '',
-           remoteDirectory: '',
-           commands: 'rm -rf /mnt/apache-tomcat-10.1.41/webapps/*.war',
-           execTimeout: 60000,
-           verbose: true
-          )
-         }
+        stage('Cleanup Remote Server') {
+            steps {
+                script {
+                    step([
+                        $class: 'PublishOverSSH',
+                        publishers: [
+                            [
+                                configName: 'server-1',
+                                transfers: [[
+                                    execCommand: 'rm -rf /mnt/apache-tomcat-10.1.41/webapps/*.war'
+                                ]],
+                                execTimeout: 60000,
+                                verbose: true
+                            ]
+                        ]
+                    ])
+                }
+            }
         }
         stage('deployment on remote server') {
-         steps {
-          publishOverSsh(
-           server: 'server-1',
-           sourceFiles: 'target/*.war',
-           removePrefix: 'target',
-           remoteDirectory:'',
-           commands: '''
-                 cd /mnt/apache-tomcat-10.1.41/bin
-                 ./startup.sh
-           ''',
-           execTimeout: 1200000,
-           verbose: true
-          )
-         }
+            steps {
+                script {
+                    step([
+                        $class: 'PublishOverSSH',
+                        publishers: [
+                            [
+                                configName: 'server-1',
+                                transfers: [[
+                                    sourceFiles: 'target/*.war',
+                                    removePrefix: 'target',
+                                    remoteDirectory: '/mnt/apache-tomcat-10.1.41/webapps',
+                                    execCommand: '''
+                                        cd /mnt/apache-tomcat-10.1.41/bin
+                                        ./startup.sh
+                                    '''
+                                ]],
+                                execTimeout: 120000,
+                                verbose: true
+                            ]
+                        ]
+                    ])
+                }
+            }
         }
        }
       }
