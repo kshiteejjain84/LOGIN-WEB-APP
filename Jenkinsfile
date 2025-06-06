@@ -6,7 +6,7 @@ tools {
  stages {
   stage('build and create war file') {
    steps {
-    dir('/mnt/project) {
+    dir('/mnt/project') {
         script {
      //cleaning the custom workspace and creating custom workspace
          sh 'rm -rf /mnt/project
