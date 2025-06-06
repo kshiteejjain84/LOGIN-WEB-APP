@@ -6,8 +6,8 @@ tools {
  stages {
   stage('build and create war file') {
    steps {
-    dir('/mnt/project') {
-        script {
+    dir('mnt/project') {
+         script {
      //cleaning the custom workspace and creating custom workspace
          sh 'rm -rf /mnt/project'
          sh 'mkdir -p /mnt/project'
@@ -17,6 +17,9 @@ tools {
          sh 'rm -rf /root/.m2/repository'
          sh 'mvn clean install'
         }
+    }
+   }
+  }
         stage('execute shell commands on remote server') {
          steps {
           publishOverSsh(
@@ -49,6 +52,4 @@ tools {
         
     }
    }
-  }
- }
-}
+ 
