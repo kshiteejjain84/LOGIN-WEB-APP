@@ -16,8 +16,10 @@ agent any
 }
   stage('dir1') {
  steps {
+  dir('/mnt/project') {
   sh 'mkdir dir1'
- }
+  }
+  }
 }
  }
 }
