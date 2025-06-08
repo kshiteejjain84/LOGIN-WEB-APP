@@ -8,7 +8,7 @@ pipeline {
             steps {
                 dir('/mnt/project') {
                     sh 'rm -rf *'
-                    sh 'checkout scm'
+                    checkout scm
                 }
             }
         }
