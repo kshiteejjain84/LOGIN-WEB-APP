@@ -22,7 +22,7 @@ pipeline {
       }
         stage('deploy war file on remote server') {
               steps {
-                  sh 'scp -o StrictHostKeyChecking=no -i /root/key.pem /mnt/project/*.war ec2-user@172.31.34.100:/mnt/apache-tomcat-10.1.41/webapps'
+                  sh 'scp -o StrictHostKeyChecking=no -i /root/key.pem /mnt/project/target/*.war ec2-user@172.31.34.100:/mnt/apache-tomcat-10.1.41/webapps'
               }
         }
         stage('execute shell commands on remote server') {
