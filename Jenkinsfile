@@ -38,6 +38,5 @@ stages{
       sh 'cd /mnt/apache-tomcat-10.1.42/bin && ./startup.sh'
     }
   }
-  stage('database configuration
 }
 }
