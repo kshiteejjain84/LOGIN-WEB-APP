@@ -19,10 +19,22 @@ stages{
     agent {
       label 'built-in'
     }
-  steps {
+  environment {
+    DB_URL = 'jdbc:mysql://database-1.cf08a8wsmd7q.us-east-2.rds.amazonaws.com:3306/loginwebapp'
+    DB_USER = 'admin'
+    DB_PASS = '12345678'
+  }
+    steps {
     dir('/mnt/project/src/main/webapp') {
       sh '''
-      
+      # Replace the DB connection line with placeholders
+        sed -i 's|DriverManager.getConnection(.*);|DriverManager.getConnection("DB_URL_PLACEHOLDER", "DB_USER_PLACEHOLDER", "DB_PASS_PLACEHOLDER");|' userRegistration.jsp
+
+        # Inject real values
+        sed -i "s|DB_URL_PLACEHOLDER|${DB_URL}|" userRegistration.jsp
+        sed -i "s|DB_USER_PLACEHOLDER|${DB_USER}|" userRegistration.jsp
+        sed -i "s|DB_PASS_PLACEHOLDER|${DB_PASS}|" userRegistration.jsp
+        '''
     }
   }
   }
