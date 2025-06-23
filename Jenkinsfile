@@ -50,7 +50,7 @@ stages{
     }
     }
   }
-  stage('deploy of warfile on slave-1') {
+  stage('deploy of warfile on slave-2') {
     agent {
       label 'slave-2'
     }
