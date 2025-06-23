@@ -3,6 +3,9 @@ pipeline{
   tools {
     maven 'apache-maven-3.9.10'
   }
+  options {
+    skipDefaultCheckout()
+  }
 stages{
   stage('clone git repo to custom location') {
     agent {
