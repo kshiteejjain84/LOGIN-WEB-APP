@@ -26,7 +26,7 @@ stages{
   }
     steps {
     dir('/mnt/project/src/main/webapp') {
-      sh '''
+      sh """
       # Replace the DB connection line with placeholders
         sed -i 's|DriverManager.getConnection(.*);|DriverManager.getConnection("DB_URL_PLACEHOLDER", "DB_USER_PLACEHOLDER", "DB_PASS_PLACEHOLDER");|' userRegistration.jsp
 
@@ -34,7 +34,7 @@ stages{
         sed -i "s|DB_URL_PLACEHOLDER|${DB_URL}|" userRegistration.jsp
         sed -i "s|DB_USER_PLACEHOLDER|${DB_USER}|" userRegistration.jsp
         sed -i "s|DB_PASS_PLACEHOLDER|${DB_PASS}|" userRegistration.jsp
-        '''
+        """
     }
   }
   }
