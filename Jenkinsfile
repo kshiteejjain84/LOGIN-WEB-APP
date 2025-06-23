@@ -28,9 +28,8 @@ stages{
     dir('/mnt/project/src/main/webapp') {
       sh """
       # Replace the DB connection line with placeholders
-        sed -i 's|DriverManager.getConnection("jdbc:mysql://localhost:3306/test",
-            "root", "root");|DriverManager.getConnection("DB_URL_PLACEHOLDER", "DB_USER_PLACEHOLDER", "DB_PASS_PLACEHOLDER");|' userRegistration.jsp
-
+        sed -i 's|DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root", "root");|DriverManager.getConnection("DB_URL_PLACEHOLDER", "DB_USER_PLACEHOLDER", "DB_PASS_PLACEHOLDER");|' userRegistration.jsp
+        
         # Inject real values
         sed -i "s|DB_URL_PLACEHOLDER|${DB_URL}|" userRegistration.jsp
         sed -i "s|DB_USER_PLACEHOLDER|${DB_USER}|" userRegistration.jsp
