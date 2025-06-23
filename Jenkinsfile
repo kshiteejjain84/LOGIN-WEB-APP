@@ -56,7 +56,7 @@ stages{
     }
     steps {
       unstash 'warfile'
-      sh 'cp -r target/*.war /mnt/apache-tomcat-10.1.42/webapps'
+      sh 'sudo cp -r target/*.war /mnt/apache-tomcat-10.1.42/webapps'
       sh 'chmod -R 777 /mnt/apache-tomcat-10.1.42'
       sh 'cd /mnt/apache-tomcat-10.1.42/bin && ./startup.sh'
     }
