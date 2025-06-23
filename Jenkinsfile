@@ -6,7 +6,7 @@ pipeline{
 stages{
   stage('clone git repo to custom location') {
     agent {
-      lable 'built-in'
+      label 'built-in'
     }
     steps {
       dir('/mnt/project') {
