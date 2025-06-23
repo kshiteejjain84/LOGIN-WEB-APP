@@ -56,10 +56,12 @@ stages{
     }
     steps {
       unstash 'warfile'
-      sh 'sudo cp -r target/*.war /mnt/apache-tomcat-10.1.42/webapps'
-      sh 'sudo chmod -R 777 /mnt/apache-tomcat-10.1.42'
-      sh 'cd /mnt/apache-tomcat-10.1.42/bin'
-      sh 'sudo ./startup.sh'
+      sh '''
+      sudo cp -r target/*.war /mnt/apache-tomcat-10.1.42/webapps'
+      sudo chmod -R 777 /mnt/apache-tomcat-10.1.42'
+      cd /mnt/apache-tomcat-10.1.42/bin'
+      sudo ./startup.sh
+      '''
     }
   }
 }
