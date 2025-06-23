@@ -20,7 +20,8 @@ stages{
       label 'built-in'
     }
   steps {
-    dir('/mnt/project/src/main/webapps') {
+    dir('/mnt/project/src/main/webapp') {
+      sh '''
       
     }
   }
