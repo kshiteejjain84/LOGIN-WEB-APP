@@ -15,6 +15,16 @@ stages{
       }
     }
   }
+  stage('database configuration') {
+    agent {
+      label 'built-in'
+    }
+  steps {
+    dir('/mnt/project/src/main/webapps') {
+      
+    }
+  }
+  }
   stage('build war file with maven') {
     agent {
       label 'built-in'
