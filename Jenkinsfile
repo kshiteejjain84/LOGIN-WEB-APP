@@ -72,7 +72,7 @@ stages{
       unstash 'sqlfile'
       sh 'sudo chmod -R 777 /mnt/jenkins-slave1/workspace/war-file-deploy-on-containers/init.sql'
       sh 'sudo docker build -t customsql:1.0 .'
-      sh 'sudo docker run -dp 3306:3306 --name mysqlcontainer -n kshiteej customsql:1.0'
+      sh 'sudo docker run -dp 3306:3306 --name mysqlcontainer --network kshiteej customsql:1.0'
     }
   }
   stage(' run tomcat container and deploy war file in it') {
@@ -81,7 +81,7 @@ stages{
     }
     steps {
       sleep 10
-      sh 'sudo docker run -dp 8080:8080 --name tomcat10 -n kshiteej tomcat:10'
+      sh 'sudo docker run -dp 8080:8080 --name tomcat10 --network kshiteej tomcat:10'
       unstash 'warfile'
       sh 'sudo docker cp target/*.war tomcat10:/usr/local/tomcat/webapps'
     }
