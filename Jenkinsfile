@@ -60,7 +60,7 @@ stages{
       label 'slave-1'
     }
     steps {
-      sh 'docker network create kshiteej --driver=bridge'
+      sh 'sudo docker network create kshiteej --driver=bridge'
     }
   }
   stage('build and run docker container mysqlcontainer on slave-1') {
