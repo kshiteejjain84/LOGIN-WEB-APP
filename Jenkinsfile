@@ -60,8 +60,8 @@ stages{
     }
     steps {
       unstash 'dockerfile'
-      sh 'docker build -t customsql:1.0 .'
-      sh 'docker run -dp 3306:3306 --name mysqlcontainer customsql:1.0'
+      sh 'sudo docker build -t customsql:1.0 .'
+      sh 'sudo docker run -dp 3306:3306 --name mysqlcontainer customsql:1.0'
     }
   }
   stage(' run tomcat container and deploy war file in it') {
@@ -70,9 +70,9 @@ stages{
     }
     steps {
       sleep 10
-      sh 'docker run -dp 8080:8080 --name tomcat10 tomcat:10'
+      sh 'sudo docker run -dp 8080:8080 --name tomcat10 tomcat:10'
       unstash 'warfile'
-      sh 'docker cp target/*.war tomcat10:/usr/local/tomcat/webapps'
+      sh 'sudo docker cp target/*.war tomcat10:/usr/local/tomcat/webapps'
     }
   }
 }
