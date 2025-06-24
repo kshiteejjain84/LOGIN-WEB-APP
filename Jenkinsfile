@@ -62,7 +62,7 @@ stages{
     steps {
       unstash 'dockerfile'
       unstash 'sqlfile'
-      chmod -R 777 /mnt/jenkins-slave1/workspace/war-file-deploy-on-containers/init.sql
+      sudo chmod -R 777 /mnt/jenkins-slave1/workspace/war-file-deploy-on-containers/init.sql
       sh 'sudo docker build -t customsql:1.0 .'
       sh 'sudo docker run -dp 3306:3306 --name mysqlcontainer customsql:1.0'
     }
