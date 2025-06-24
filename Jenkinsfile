@@ -12,9 +12,10 @@ stages{
       label 'built-in'
     }
     steps {
-      dir('/mnt/project') {
+      dir('/mnt/project-2') {
         sh 'rm -rf *'
         checkout scm
+        stash includes: 'Dockerfile', name: 'dockerfile'
       }
     }
   }
@@ -23,12 +24,12 @@ stages{
       label 'built-in'
     }
   environment {
-    DB_URL = 'jdbc:mysql://database-1.cf08a8wsmd7q.us-east-2.rds.amazonaws.com:3306/loginwebapp'
+    DB_URL = 'jdbc:mysql://mysqlcontainer:3306/loginwebapp'
     DB_USER = 'admin'
     DB_PASS = '12345678'
   }
     steps {
-    dir('/mnt/project/src/main/webapp') {
+    dir('/mnt/project-2/src/main/webapp') {
       sh """
       # Replace the DB connection line with placeholders
         sed -i 's|DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "root");|DriverManager.getConnection("DB_URL_PLACEHOLDER", "DB_USER_PLACEHOLDER", "DB_PASS_PLACEHOLDER");|' userRegistration.jsp
@@ -41,30 +42,37 @@ stages{
     }
   }
   }
-  stage('build war file with maven') {
+  stage('build with maven') {
     agent {
       label 'built-in'
     }
-  steps {
-    dir('/mnt/project') {
-    sh ' rm -rf /root/.m2/repository'
-    sh 'mvn clean install'
-    stash includes: 'target/*.war', name: 'warfile'
-    }
+    steps {
+      dir('/mnt/project-2') {
+        sh 'rm -rf /root/.m2/repository'
+        sh 'mvn clean install'
+        stash includes: 'target/*.war', name: 'warfile'
+      }
     }
   }
-  stage('deploy of warfile on slave-2') {
+  stage('build and run docker container mysqlcontainer on slave-1') {
     agent {
-      label 'slave-2'
+      label 'slave-1'
     }
     steps {
+      unstash 'dockerfile'
+      sh 'docker build -t customsql:1.0 .'
+      sh 'docker run -dp 3306:3306 --name mysqlcontainer customsql:1.0'
+    }
+  }
+  stage(' run tomcat container and deploy war file in it') {
+    agent {
+      label 'slave-1'
+    }
+    steps {
+      sleep 10
+      sh 'docker run -dp 8080:8080 --name tomcat10 tomcat:10'
       unstash 'warfile'
-      sh 'sudo cp -r target/*.war /mnt/apache-tomcat-10.1.42/webapps'
-      sh '''
-      sudo chmod -R 777 /mnt/apache-tomcat-10.1.42
-      cd /mnt/apache-tomcat-10.1.42/bin
-      sudo ./startup.sh
-      '''
+      sh 'docker cp target/*.war tomcat10:/usr/local/tomcat/webapps'
     }
   }
 }
