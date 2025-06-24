@@ -16,6 +16,7 @@ stages{
         sh 'rm -rf *'
         checkout scm
         stash includes: 'Dockerfile', name: 'dockerfile'
+        stash includes: 'init.sql', name: 'sqlfile'
       }
     }
   }
@@ -60,6 +61,7 @@ stages{
     }
     steps {
       unstash 'dockerfile'
+      unstash 'sqlfile'
       sh 'sudo docker build -t customsql:1.0 .'
       sh 'sudo docker run -dp 3306:3306 --name mysqlcontainer customsql:1.0'
     }
