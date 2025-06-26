@@ -35,6 +35,9 @@ pipeline{
       }
     }
     stage('copy war file to devenv and qa env') {
+      agent {
+        label 'built-in'
+      }
       steps {
         sh 'scp -r /mnt/wars/*.war kshiteej@${devip}:/mnt/wars'
          sh 'scp -r /mnt/wars/*.war kshiteej@${qaip}:/mnt/wars'
