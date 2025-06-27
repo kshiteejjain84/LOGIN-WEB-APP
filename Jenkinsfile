@@ -7,8 +7,8 @@ pipeline{
     skipDefaultCheckout()
   }
   environment {
-    devip= "10.10.1.223"
-    qaip= "10.10.2.115"
+    devip= "10.10.1.48"
+    qaip= "10.10.2.20"
   }
   stages{
     stage('clone git repo containing source code to custom location') {
@@ -30,11 +30,12 @@ pipeline{
         dir('/mnt/loginwebapp-project') {
           sh 'rm -rf /root/.m2/repository'
           sh 'mvn clean install'
+          sh 'rm -rf /mnt/wars/*'
           sh 'cp -r target/*.war /mnt/wars'
         }
       }
     }
-    stage('copy war file to devenv and qa env') {
+    stage('copy war file to dev env and qa env') {
       agent {
         label 'built-in'
       }
