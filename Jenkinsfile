@@ -28,9 +28,9 @@ pipeline{
     }
       steps {
         dir('/mnt/loginwebapp-project') {
-          sh 'rm -rf /root/.m2/repository'
+          sh 'sudo rm -rf /root/.m2/repository'
           sh 'mvn clean install'
-          sh 'rm -rf /mnt/wars/*'
+          sh 'sudo rm -rf /mnt/wars/*'
           sh 'cp -r target/*.war /mnt/wars'
         }
       }
